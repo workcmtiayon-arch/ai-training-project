@@ -1,0 +1,20 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block content %}
+  <h1 class="mt-6 text-2xl font-semibold text-slate-900">Créer un compte</h1>
+  <p class="mt-1 text-sm text-slate-500">Un compte pour retrouver vos conversations et tâches.</p>
+  <form method="post" class="mt-6 space-y-4">
+    {% csrf_token %}
+    {% for field in form %}
+      <label class="block text-sm font-medium text-slate-700">{{ field.label }}
+        {{ field }}
+        {% if field.help_text %}<span class="mt-1 block text-xs font-normal text-slate-400">{{ field.help_text|safe }}</span>{% endif %}
+        {% for error in field.errors %}<span class="mt-1 block text-xs text-rose-600">{{ error }}</span>{% endfor %}
+      </label>
+    {% endfor %}
+    <button class="w-full rounded-lg bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-800" type="submit">Créer mon compte</button>
+  </form>
+  <p class="mt-6 text-center text-sm text-slate-500">Déjà inscrit ? <a class="font-semibold text-blue-700 hover:underline" href="{% url 'accounts:login' %}">Se connecter</a></p>
+{% endblock %}
