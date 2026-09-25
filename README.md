@@ -21,6 +21,16 @@ python manage.py runserver
 
 Ouvrez ensuite http://127.0.0.1:8000/. Chaque navigateur possède sa conversation via sa session Django. L’API reçoit les 20 derniers messages et limite chaque message entrant à 2000 caractères.
 
+## Comptes et authentification
+
+Les comptes sont gérés par le système d’authentification natif de Django et sont enregistrés dans la base de données (`auth_user`).
+
+- Inscription : http://127.0.0.1:8000/comptes/inscription/
+- Connexion : http://127.0.0.1:8000/comptes/connexion/
+- Déconnexion : le bouton présent dans l’application
+
+Les mots de passe sont hachés par Django. Le chat et l’API des tâches nécessitent une session utilisateur authentifiée.
+
 Pour vérifier le projet :
 
 ```bash
