@@ -1,0 +1,20 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+  <h1 class="mt-6 text-2xl font-semibold text-slate-900">Se connecter</h1>
+  <p class="mt-1 text-sm text-slate-500">Retrouvez votre espace de travail.</p>
+  <form method="post" class="mt-6 space-y-4">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<p class="text-sm text-rose-600">{{ form.non_field_errors|striptags }}</p>{% endif %}
+    {% for field in form %}
+      <label class="block text-sm font-medium text-slate-700">{{ field.label }}
+        {{ field }}
+        {% for error in field.errors %}<span class="mt-1 block text-xs text-rose-600">{{ error }}</span>{% endfor %}
+      </label>
+    {% endfor %}
+    <button class="w-full rounded-lg bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-800" type="submit">Connexion</button>
+  </form>
+  <p class="mt-6 text-center text-sm text-slate-500">Pas encore de compte ? <a class="font-semibold text-blue-700 hover:underline" href="{% url 'accounts:signup' %}">S’inscrire</a></p>
+{% endblock %}
