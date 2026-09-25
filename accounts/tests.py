@@ -56,7 +56,7 @@ class AccountFlowTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'trop courant')
+        self.assertEqual(response.context['form'].errors['password2'].as_data()[0].code, 'password_too_common')
         self.assertFalse(User.objects.filter(username='alice').exists())
 
     def test_login_and_logout(self):
