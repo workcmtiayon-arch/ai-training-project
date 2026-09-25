@@ -1,6 +1,7 @@
 import json
 
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, StreamingHttpResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_POST
@@ -19,6 +20,7 @@ def _get_conversation(request):
 
 
 @require_GET
+@login_required
 def chat_page(request):
     conversation = _get_conversation(request)
     messages = conversation.messages.all()
@@ -26,6 +28,7 @@ def chat_page(request):
 
 
 @require_POST
+@login_required
 def send_message(request):
     try:
         payload = json.loads(request.body)

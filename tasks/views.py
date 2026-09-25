@@ -1,6 +1,7 @@
 import json
 
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET, require_POST
 from pydantic import ValidationError
 
@@ -24,6 +25,7 @@ def _json_body(request):
 
 
 @require_GET
+@login_required
 def task_list(request):
     session_key = _session_key(request)
     if not request.session.get('demo_tasks_seeded', False):
@@ -34,6 +36,7 @@ def task_list(request):
 
 
 @require_POST
+@login_required
 def task_create(request):
     payload = _json_body(request)
     if payload is None:
@@ -47,6 +50,7 @@ def task_create(request):
 
 
 @require_POST
+@login_required
 def task_update(request, task_id):
     payload = _json_body(request)
     if payload is None:
@@ -66,6 +70,7 @@ def task_update(request, task_id):
 
 
 @require_POST
+@login_required
 def task_delete(request, task_id):
     task = Task.objects.filter(id=task_id, session_key=_session_key(request)).first()
     if task is None:
