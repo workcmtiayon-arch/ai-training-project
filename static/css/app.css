@@ -26,3 +26,20 @@ input,
 select {
   transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
 }
+
+form input[type='text'],
+form input[type='email'],
+form input[type='password'] {
+  display: block;
+  margin-top: 0.375rem;
+  width: 100%;
+  border: 1px solid #bfdbfe;
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.75rem;
+  outline: none;
+}
+
+form input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px #2563eb;
+}
