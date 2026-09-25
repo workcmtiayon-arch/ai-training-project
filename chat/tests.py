@@ -3,11 +3,16 @@ from unittest.mock import patch
 
 from django.test import TestCase
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 from .models import Message
 
 
 class ChatViewTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='tester', password='StrongPass123!')
+        self.client.force_login(self.user)
+
     def test_chat_page_is_available_and_session_based(self):
         response = self.client.get(reverse('chat_page'))
         self.assertEqual(response.status_code, 200)
