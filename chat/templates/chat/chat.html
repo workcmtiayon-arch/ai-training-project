@@ -11,7 +11,17 @@
 <body class="min-h-screen bg-blue-50 text-slate-800 lg:h-screen lg:overflow-hidden" data-task-list-url="{% url 'task_list' %}" data-task-create-url="{% url 'task_create' %}" data-chat-url="{% url 'send_message' %}">
   <main class="mx-auto flex min-h-screen w-full flex-col px-4 sm:px-8 lg:h-screen lg:max-h-screen lg:px-10 xl:px-12">
     <header class="flex-none border-b border-blue-100 py-5">
-      <!-- <p class="text-xs font-semibold uppercase tracking-[0.25em] text-blue-700">AI Chat Lab</p>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-blue-700">AI Chat Lab</p>
+          <p class="mt-1 text-sm text-slate-500">Bienvenue, {{ request.user.username }}</p>
+        </div>
+        <form method="post" action="{% url 'accounts:logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="text-sm font-semibold text-blue-700 hover:underline">Se déconnecter</button>
+        </form>
+      </div>
+      <!--
       <h1 class="mt-1 text-2xl font-semibold text-slate-900">Votre assistant IA</h1>
       <p class="mt-1 text-sm text-slate-500">Discutez avec Gemini et organisez vos prochaines actions.</p> -->
     </header>
