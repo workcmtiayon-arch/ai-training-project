@@ -2,11 +2,16 @@ import json
 
 from django.test import TestCase
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 from .models import Task
 
 
 class TaskCrudTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='tester', password='StrongPass123!')
+        self.client.force_login(self.user)
+
     def test_list_clones_demo_tasks_into_current_session(self):
         response = self.client.get(reverse('task_list'))
         self.assertEqual(response.status_code, 200)
