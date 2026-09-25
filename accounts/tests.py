@@ -44,6 +44,21 @@ class AccountFlowTests(TestCase):
         self.assertContains(response, 'déjà utilisée')
         self.assertEqual(User.objects.count(), 1)
 
+    def test_weak_password_is_rejected(self):
+        response = self.client.post(
+            reverse('accounts:signup'),
+            data={
+                'username': 'alice',
+                'email': 'alice@example.com',
+                'password1': 'password',
+                'password2': 'password',
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'trop courant')
+        self.assertFalse(User.objects.filter(username='alice').exists())
+
     def test_login_and_logout(self):
         User.objects.create_user(username='alice', password='StrongPass123!')
 
