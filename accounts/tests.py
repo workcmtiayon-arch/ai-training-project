@@ -6,6 +6,10 @@ from django.urls import reverse
 
 
 class AccountFlowTests(TestCase):
+    def test_authentication_pages_are_available(self):
+        self.assertEqual(self.client.get(reverse('accounts:login')).status_code, 200)
+        self.assertEqual(self.client.get(reverse('accounts:signup')).status_code, 200)
+
     def test_signup_creates_hashed_user_and_logs_in(self):
         response = self.client.post(
             reverse('accounts:signup'),
